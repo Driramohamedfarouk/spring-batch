@@ -9,22 +9,19 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Customer {
+public class CustomerOutput {
     @Id
     private String client_num ;
-    private String attrition_flag ;
+    private boolean attrition_flag ;
     private int customer_age ;
-    private String gender ;
 
-    public Customer(String client_num, String attrition_flag, int customer_age, String gender) {
+    public CustomerOutput() {
+    }
+
+    public CustomerOutput(String client_num, boolean attrition_flag, int customer_age) {
         this.client_num = client_num;
         this.attrition_flag = attrition_flag;
         this.customer_age = customer_age;
-        this.gender = gender;
-    }
-
-    public Customer() {
-
     }
 
     public String getClient_num() {
@@ -35,11 +32,11 @@ public class Customer {
         this.client_num = client_num;
     }
 
-    public String getAttrition_flag() {
+    public boolean isAttrition_flag() {
         return attrition_flag;
     }
 
-    public void setAttrition_flag(String attrition_flag) {
+    public void setAttrition_flag(boolean attrition_flag) {
         this.attrition_flag = attrition_flag;
     }
 
@@ -51,21 +48,12 @@ public class Customer {
         this.customer_age = customer_age;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     @Override
     public String toString() {
-        return "Customer{" +
+        return "CustomerOutput{" +
                 "client_num='" + client_num + '\'' +
                 ", attrition_flag=" + attrition_flag +
                 ", customer_age=" + customer_age +
-                ", gender=" + gender +
                 '}';
     }
 }

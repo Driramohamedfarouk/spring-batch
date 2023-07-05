@@ -29,15 +29,15 @@ public class BatchConfiguration {
 
 
     @Bean
-    public FlatFileItemReader<Customer> reader(){
-        return new FlatFileItemReaderBuilder<Customer>()
+    public FlatFileItemReader<CustomerInput> reader(){
+        return new FlatFileItemReaderBuilder<CustomerInput>()
                 .name("customerItemReader")
                 .resource(new ClassPathResource(fileInput))
                 .delimited()
                 .names("client_num","attrition_flag","customer_age","gender")
                 .fieldSetMapper(
                         new BeanWrapperFieldSetMapper<>() {{
-                            setTargetType(Customer.class);
+                            setTargetType(CustomerInput.class);
                         }}
                 ).build();
     }
@@ -48,10 +48,10 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public JdbcBatchItemWriter<Customer> writer(DataSource dataSource) {
-        return new JdbcBatchItemWriterBuilder<Customer>()
+    public JdbcBatchItemWriter<CustomerOutput> writer(DataSource dataSource) {
+        return new JdbcBatchItemWriterBuilder<CustomerOutput>()
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("INSERT INTO customer (client_num,attrition_flag,customer_age,gender) VALUES (:client_num, :attrition_flag, :customer_age, :gender)")
+                .sql("INSERT INTO customer_output (client_num,attrition_flag,customer_age) VALUES (:client_num, :attrition_flag, :customer_age)")
                 .dataSource(dataSource)
                 .build();
     }
@@ -70,10 +70,10 @@ public class BatchConfiguration {
     @Bean
     public Step step1(JobRepository jobRepository,
                       PlatformTransactionManager transactionManager,
-                      JdbcBatchItemWriter<Customer> writer
+                      JdbcBatchItemWriter<CustomerOutput> writer
     ){
         return new StepBuilder("step1",jobRepository)
-                .<Customer,Customer> chunk(10,transactionManager)
+                .<CustomerInput, CustomerOutput> chunk(10,transactionManager)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer)

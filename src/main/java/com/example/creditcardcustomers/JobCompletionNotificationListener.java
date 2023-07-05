@@ -2,7 +2,6 @@ package com.example.creditcardcustomers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,9 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
             case COMPLETED ->  LOGGER.info("!!! JOB FINISHED! ");
             case FAILED -> LOGGER.error("JOB FAILED");
         }
-        String query = "SELECT client_num, attrition_flag,customer_age,gender  FROM customer";
-        jdbcTemplate.query(query, (rs, row) -> new Customer(rs.getString(1), rs.getString(2),rs.getInt(3),rs.getString(4) ))
-                .forEach(customer -> LOGGER.info("Found < {} > in the database.", customer));
+      /*  String query = "SELECT client_num, attrition_flag,customer_age,gender  FROM customer";
+        jdbcTemplate.query(query, (rs, row) -> new CustomerInput(rs.getString(1), rs.getString(2),rs.getInt(3),rs.getString(4) ))
+                .forEach(customer -> LOGGER.info("Found < {} > in the database.", customer));*/
     }
 }
 
