@@ -1,4 +1,4 @@
-package com.example.creditcardcustomers;
+package com.example.creditcardcustomers.model;
 
 
 

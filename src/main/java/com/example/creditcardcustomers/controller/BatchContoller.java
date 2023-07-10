@@ -1,11 +1,7 @@
 package com.example.creditcardcustomers.controller;
 
-import com.example.creditcardcustomers.BatchConfiguration;
-import com.example.creditcardcustomers.dto.BatchParameters;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
-import org.springframework.batch.core.launch.JobLauncher;
+import com.example.creditcardcustomers.service.BatchService;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
@@ -16,19 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/batch")
 public class BatchContoller {
 
-    private final JobLauncher jobLauncher ;
-    private final Job importUserJob ;
+    private BatchService batchService ;
 
-    public BatchContoller(JobLauncher jobLauncher, Job importUserJob) {
-        this.jobLauncher = jobLauncher;
-        this.importUserJob = importUserJob;
+    public BatchContoller(BatchService batchService) {
+        this.batchService = batchService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void runJob(@RequestBody BatchParameters parameters) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        BatchConfiguration.setChunckSize(parameters.getChunckSize());
-        jobLauncher.run(importUserJob,new JobParameters());
+    public int runJob(@RequestParam("chunkSize") int chunkSize) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        this.batchService.executeCustomJob(chunkSize);
+        return chunkSize;
     }
 
 }
