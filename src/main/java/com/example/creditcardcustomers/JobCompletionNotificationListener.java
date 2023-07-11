@@ -38,9 +38,9 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
             case COMPLETED ->  LOGGER.info("!!! JOB FINISHED! ");
             case FAILED -> LOGGER.error("JOB FAILED");
         }
-        String query = "SELECT client_num, attrition_flag,customer_age,gender  FROM customer";
+       /* String query = "SELECT client_num, attrition_flag,customer_age,gender  FROM customer";
         jdbcTemplate.query(query, (rs, row) -> new CustomerInput(rs.getString(1), rs.getString(2),rs.getInt(3),rs.getString(4) ))
-                .forEach(customer -> LOGGER.info("Found < {} > in the database.", customer));
+                .forEach(customer -> LOGGER.info("Found < {} > in the database.", customer));*/
     }
 }
 

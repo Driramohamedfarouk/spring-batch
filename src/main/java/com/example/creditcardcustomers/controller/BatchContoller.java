@@ -1,5 +1,6 @@
 package com.example.creditcardcustomers.controller;
 
+import com.example.creditcardcustomers.dto.BatchMetrics;
 import com.example.creditcardcustomers.service.BatchService;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
@@ -20,9 +21,9 @@ public class BatchContoller {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public int runJob(@RequestParam("chunkSize") int chunkSize) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        this.batchService.executeCustomJob(chunkSize);
-        return chunkSize;
+    @CrossOrigin(origins = "http://localhost:4200")
+    public BatchMetrics runJob(@RequestParam("chunkSize") int chunkSize) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        return this.batchService.executeCustomJob(chunkSize);
     }
 
 }
