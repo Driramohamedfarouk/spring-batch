@@ -1,0 +1,20 @@
+<app-alert [show]="showAlert" [executionTime]="executionTime" ></app-alert>
+<app-alert-failure [show]="showAlertFailure" ></app-alert-failure>
+<div class="row">
+  <div class="mx-auto col-10 col-md-8 col-lg-6">
+    <div class="container" style="padding: 100px ; background-color: bisque">
+      <form (ngSubmit)="submitForm()" >
+        <div class="form-group">
+          <label for="formGroupExampleInput">Chunk Size</label>
+
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="10"
+                 name="chunkSize" [(ngModel)]="chunkSize" required
+          >
+        </div>
+        <div class="col text-center" style="padding: 25px">
+          <button class="btn btn-success" type="submit">Start Job</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
