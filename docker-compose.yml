@@ -1,34 +1,34 @@
-version: '3'
+version: '3.8'
 
 services:
 
   backend :
-    image: "batch-app"
     container_name: "backend"
+    build:
+      ./spring-batch
     ports:
       - 8080:8080
-    environment:
-      - DB_NAME=test
-      - DB_USER=root
-      - DB_PASSWORD=root
+    depends_on:
+      - database
+    restart: always
 
   frontend :
     container_name: "batch-ui"
     build:
       ./frontend
-    volumes:
-    - './frontend:/usr/src/app'
     ports:
     - 4200:4200
+#    depends_on:
+#      - backend
     command:
-      bash -c "npm install && ng serve"
+      bash -c "npm install && ng serve --host 0.0.0.0"
 
   database :
     image : mysql
-    container_name: "db"
-    command: --default-authentication-plugin=mysql_native_password
+    container_name: "database"
     restart: always
     ports:
     - 3307:3306
     environment:
+      MYSQL_DATABASE : test
       MYSQL_ROOT_PASSWORD : root
