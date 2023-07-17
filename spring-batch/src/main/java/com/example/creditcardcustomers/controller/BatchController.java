@@ -51,4 +51,14 @@ public class BatchController {
         jobLauncher.run(job,jobParameters);
         return "Job Launched successfully!";
     }
+
+
+    @PostMapping("/multi")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public BatchMetrics runJob(@RequestParam("chunkSize") int chunkSize ,@RequestParam("stepSize") int stepSize ) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        return this.batchService.executeCustomJob(chunkSize,stepSize);
+    }
+
+
 }

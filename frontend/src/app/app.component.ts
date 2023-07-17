@@ -9,6 +9,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 export class AppComponent {
   title = 'batch-front';
   chunkSize: number = 10 ;
+  stepSize: number = 1 ;
   showAlert = false ;
   showAlertFailure = false ;
   executionTime = "" ;
@@ -19,9 +20,10 @@ export class AppComponent {
 
   submitForm() {
     //const queryParams = { chunkSize: this.chunkSize };
-    this.http.post<any>('http://localhost:8080/batch',null,{
+    this.http.post<any>('http://localhost:8080/batch/multi',null,{
       params : {
-        chunkSize : this.chunkSize
+        chunkSize : this.chunkSize ,
+        stepSize : this.stepSize
       }
     })
       .subscribe(

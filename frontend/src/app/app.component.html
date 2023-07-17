@@ -5,10 +5,17 @@
     <div class="container" style="padding: 100px ; background-color: bisque">
       <form (ngSubmit)="submitForm()" >
         <div class="form-group">
-          <label for="formGroupExampleInput">Chunk Size</label>
+          <label for="formChunkSize">Chunk size</label>
 
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="10"
+          <input type="text" class="form-control" id="formChunkSize" placeholder="10"
                  name="chunkSize" [(ngModel)]="chunkSize" required
+          >
+        </div>
+        <div class="form-group">
+          <label for="formStepSize">Step size</label>
+
+          <input type="text" class="form-control" id="formStepSize" placeholder="10"
+                 name="stepSize" [(ngModel)]="stepSize" required
           >
         </div>
         <div class="col text-center" style="padding: 25px">
