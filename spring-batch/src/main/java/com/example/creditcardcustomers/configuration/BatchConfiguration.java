@@ -6,7 +6,6 @@ import com.example.creditcardcustomers.model.AttiredCustomer;
 import com.example.creditcardcustomers.model.CustomerInput;
 import com.example.creditcardcustomers.model.CustomerOutput;
 import com.example.creditcardcustomers.model.ExistingCustomer;
-import com.example.creditcardcustomers.partinioner.CustomPartitioner;
 import com.example.creditcardcustomers.processor.CustomerItemProcessor;
 import com.example.creditcardcustomers.processor.FilterAttiredCustomerProcessor;
 import com.example.creditcardcustomers.processor.FilterExistingCustomerProcessor;
@@ -164,14 +163,6 @@ public class BatchConfiguration {
                 .build();
     }
 
-    /*
-    * PARTITIONER
-    * */
-
-    @Bean
-    public CustomPartitioner partitioner(){
-        return new CustomPartitioner();
-    }
 
     @Bean
     public PartitionHandler partitionHandler(Step slaveStep) {
@@ -204,15 +195,7 @@ public class BatchConfiguration {
                 .build();
     }
 
-    @Bean
-    public Step masterStep(JobRepository jobRepository,
-                           PartitionHandler partitionHandler
-    ){
-        return new StepBuilder("masterStep",jobRepository)
-                .partitioner("slaveStep",partitioner())
-                .partitionHandler(partitionHandler)
-                .build();
-    }
+
 
 
     @Bean

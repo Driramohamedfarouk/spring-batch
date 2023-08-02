@@ -2,7 +2,6 @@ package com.example.creditcardcustomers.processor;
 
 import com.example.creditcardcustomers.model.AttiredCustomer;
 import com.example.creditcardcustomers.model.CustomerInput;
-import com.example.creditcardcustomers.model.CustomerOutput;
 import org.springframework.batch.item.ItemProcessor;
 
 public class FilterAttiredCustomerProcessor implements ItemProcessor<CustomerInput, AttiredCustomer> {

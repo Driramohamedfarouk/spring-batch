@@ -14,4 +14,7 @@ export class AlertFailureComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close() {
+    this.show = false
+  }
 }

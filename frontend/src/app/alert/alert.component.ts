@@ -16,4 +16,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {
   }
 
+    close() {
+        this.show = false
+    }
 }

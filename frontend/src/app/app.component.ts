@@ -10,20 +10,23 @@ export class AppComponent {
   title = 'batch-front';
   chunkSize: number = 10 ;
   stepSize: number = 1 ;
+  nbLinesToRead: number = 1000;
   showAlert = false ;
   showAlertFailure = false ;
   executionTime = "" ;
+  jobName = "" ;
 
 
   constructor(private http: HttpClient) {
   }
 
   submitForm() {
-    //const queryParams = { chunkSize: this.chunkSize };
-    this.http.post<any>('http://localhost:8080/batch/multi',null,{
+    this.http.post<any>('http://localhost:8080/batch',null,{
       params : {
+        jobName : this.jobName,
         chunkSize : this.chunkSize ,
-        stepSize : this.stepSize
+        stepSize : this.stepSize,
+        nbLinesToRead : this.nbLinesToRead
       }
     })
       .subscribe(
