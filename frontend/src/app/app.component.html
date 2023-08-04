@@ -4,33 +4,63 @@
   <div class="mx-auto col-10 col-md-8 col-lg-6">
     <div class="container" style="padding: 100px ; background-color: bisque">
       <form (ngSubmit)="submitForm()" >
-        <div class="form-group">
-          <label for="formJobName">Job Name</label>
+        <div class="form-group" style="padding: 10px">
+          <h5 class="text-center" >Job Name</h5>
 
           <input type="text" class="form-control" id="formJobName" placeholder="importUserJob"
                  name="jobName" [(ngModel)]="jobName" required
           >
         </div>
-        <div class="form-group">
-          <label for="formChunkSize">Chunk size</label>
-
-          <input type="text" class="form-control" id="formChunkSize" placeholder="10"
-                 name="chunkSize" [(ngModel)]="chunkSize" required
-          >
+        <div class="form-group row" style="padding: 10px; background-color: azure">
+          <h5 class="text-center">
+            Commit Interval
+          </h5>
+          <div class="col">
+            <label >from</label>
+            <input type="text" class="form-control" name="chunkSizeFrom" [(ngModel)]="chunkSizeFrom"  placeholder="1">
+          </div>
+          <div class="col">
+            <label >to</label>
+            <input type="text" class="form-control"  name="chunkSizeTo" [(ngModel)]="chunkSizeTo"  placeholder="100">
+          </div>
+          <div class="col">
+            <label >step</label>
+            <input type="text" class="form-control" name="chunkSizeStep"  [(ngModel)]="chunkSizeStep"  placeholder="2">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="formStepSize">Number of steps</label>
-
-          <input type="text" class="form-control" id="formStepSize" placeholder="2"
-                 name="stepSize" [(ngModel)]="stepSize" required
-          >
+        <div class="form-group row" style="padding: 10px;">
+          <h5 class="text-center">
+            Step Size
+          </h5>
+          <div class="col">
+            <label >from</label>
+            <input type="text" class="form-control" name="stepSizeFrom"   [(ngModel)]="stepSizeFrom"   placeholder="1">
+          </div>
+          <div class="col">
+            <label >to</label>
+            <input type="text" class="form-control" name="stepSizeTo" [(ngModel)]="stepSizeTo" placeholder="100">
+          </div>
+          <div class="col">
+            <label >step</label>
+            <input type="text" class="form-control" name="stepSizeStep" [(ngModel)]="stepSizeStep" placeholder="2">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="formStepSize">Number of lines</label>
-
-          <input type="text" class="form-control" id="formLinesToRead" placeholder="1000"
-                 name="nbLinesToRead" [(ngModel)]="nbLinesToRead" required
-          >
+        <div class="form-group row" style="padding: 10px; background-color: azure">
+          <h5 class="text-center">
+            Number of lines
+          </h5>
+          <div class="col">
+            <label >from</label>
+            <input type="text" class="form-control" name="nbLinesFrom" [(ngModel)]="nbLinesFrom" placeholder="1">
+          </div>
+          <div class="col">
+            <label >to</label>
+            <input type="text" class="form-control" name="nbLinesTo" [(ngModel)]="nbLinesTo"  placeholder="100">
+          </div>
+          <div class="col">
+            <label >step</label>
+            <input type="text" class="form-control" name="nbLinesStep" [(ngModel)]="nbLinesStep"  placeholder="2">
+          </div>
         </div>
         <div class="col text-center" style="padding: 25px">
           <button class="btn btn-success" type="submit">Start Job</button>

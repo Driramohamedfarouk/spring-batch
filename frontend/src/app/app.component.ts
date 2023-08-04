@@ -8,28 +8,44 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 })
 export class AppComponent {
   title = 'batch-front';
-  chunkSize: number = 10 ;
-  stepSize: number = 1 ;
-  nbLinesToRead: number = 1000;
   showAlert = false ;
   showAlertFailure = false ;
   executionTime = "" ;
   jobName = "" ;
-
+  nbLinesFrom  : number = 1000 ;
+  nbLinesTo : number = 10000 ;
+  nbLinesStep : number = 1000 ;
+  stepSizeFrom : number  = 1;
+  stepSizeTo : number  = 10;
+  stepSizeStep : number  = 2;
+  chunkSizeFrom : number = 1;
+  chunkSizeTo : number  = 10;
+  chunkSizeStep : number = 1;
 
   constructor(private http: HttpClient) {
   }
 
   submitForm() {
-    this.http.post<any>('http://localhost:8080/batch',null,{
-      params : {
-        jobName : this.jobName,
-        chunkSize : this.chunkSize ,
-        stepSize : this.stepSize,
-        nbLinesToRead : this.nbLinesToRead
+
+    this.http.post<any>('http://localhost:8081/api', {
+      jobName : this.jobName,
+      nbLinesToReadRange : {
+        from : this.nbLinesFrom ,
+        to : this.nbLinesTo ,
+        step : this.nbLinesStep
+      },
+      stepSizeRange :{
+        from : this.stepSizeFrom ,
+        to : this.stepSizeTo ,
+        step : this.stepSizeStep
+      },
+      chunkSizeRange : {
+        from : this.chunkSizeFrom ,
+        to : this.chunkSizeTo ,
+        step : this.chunkSizeStep
       }
     })
-      .subscribe(
+     /* .subscribe(
         response => {
           if(response.status == "COMPLETED"){
             this.executionTime = response.executionTime ;
@@ -41,6 +57,6 @@ export class AppComponent {
         error => {
           console.error(error);
         }
-      );
+      );*/
   }
 }
