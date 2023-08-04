@@ -45,18 +45,13 @@ export class AppComponent {
         step : this.chunkSizeStep
       }
     })
-     /* .subscribe(
+      .subscribe(
         response => {
-          if(response.status == "COMPLETED"){
-            this.executionTime = response.executionTime ;
-            this.showAlert = true ;
-          }else{
-            this.showAlertFailure = true ;
-          }
+          console.log("finished executing all jobs !!") ;
         },
         error => {
           console.error(error);
         }
-      );*/
+      );
   }
 }
