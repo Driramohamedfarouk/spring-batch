@@ -37,8 +37,8 @@ public class BatchController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin(origins = "http://localhost:4200")
-    public BatchMetrics runJob(@RequestParam("chunkSize") String jobName,
+    @CrossOrigin(origins = "http://localhost:8081")
+    public BatchMetrics runJob(@RequestParam("jobName") String jobName,
                                @RequestParam("chunkSize") int chunkSize ,
                                @RequestParam("stepSize") int stepSize,
                                @RequestParam("nbLinesToRead") int nbLinesToRead ) {

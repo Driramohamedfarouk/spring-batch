@@ -45,39 +45,6 @@ public class BatchService {
     private final JobConfigurationRepository jobConfigurationRepository ;
 
 
-/*    public BatchService(JobLauncher jobLauncher, JobRepository jobRepository, JobCompletionNotificationListener listener, FlatFileItemReader<CustomerInput> reader, JdbcBatchItemWriter<CustomerOutput> writer, CustomerItemProcessor processor, PlatformTransactionManager transactionManager) {
-        this.jobLauncher = jobLauncher;
-        this.jobRepository = jobRepository;
-        this.listener = listener;
-        this.reader = reader;
-        this.writer = writer;
-        this.processor = processor;
-        this.transactionManager = transactionManager;
-    }*/
-
-    public BatchMetrics executeCustomJob(int chunkSize) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        Step custom_step = new StepBuilder("step",jobRepository)
-                .<CustomerInput, CustomerOutput> chunk(chunkSize,transactionManager)
-                .allowStartIfComplete(true)
-                .reader(reader)
-                .processor(processor)
-                .writer(writer)
-                .build();
-
-        Job newJob = new JobBuilder(defaultJobName, jobRepository)
-                .incrementer(new RunIdIncrementer())
-                .listener(listener)
-                .flow(custom_step)
-                .end()
-                .build();
-
-        jobLauncher.run(newJob,new JobParameters());
-        JobExecution jobExecution = jobRepository.getLastJobExecution(defaultJobName,new JobParameters()) ;
-        Duration job_execution_time = Duration.between(jobExecution.getStartTime(),jobExecution.getEndTime());
-        return new BatchMetrics(job_execution_time.toString().substring(2,8),
-                jobExecution.getStatus().toString());
-    }
-
 
     public FlatFileItemReader<CustomerInput> multistep_reader(int index,int targetSize,int start) {
         return new FlatFileItemReaderBuilder<CustomerInput>()
@@ -99,8 +66,7 @@ public class BatchService {
         //jobConfigurationRepository.save(new JobConfiguration(jobName,chunkSize,nb_steps));
         final Step[] stepsArray = new Step[nb_steps];
         int min = 1;
-        int max = lines_to_read;
-        int targetSize = (max - min) / nb_steps + 1;
+        int targetSize = (lines_to_read - min) / nb_steps + 1;
         System.out.println("targetSize : " + targetSize);
         System.out.println("nb lines  : " + lines_to_read);
         for (int i = 0; i < nb_steps ; i++) {
